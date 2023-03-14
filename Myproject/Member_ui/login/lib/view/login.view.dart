@@ -53,29 +53,29 @@ class MyLoginview extends StatelessWidget {
               ),
 
               // Email input
-              TextformGlobal(
-                controller: emailController,
-                text: 'Email',
-                obscureText: false,
-                textInputType: TextInputType.emailAddress,
-                validator: MultiValidator([
-                  RequiredValidator(errorText: 'Email is required'),
-                  EmailValidator(errorText: 'Enter a valid email address'),
-                ]),
-              ),
+              // TextformGlobal(
+              //   controller: emailController,
+              //   text: 'Email',
+              //   obscureText: false,
+              //   textInputType: TextInputType.emailAddress,
+              //   validator: MultiValidator([
+              //     RequiredValidator(errorText: 'Email is required'),
+              //     EmailValidator(errorText: 'Enter a valid email address'),
+              //   ]),
+              // ),
 
               const SizedBox(
                 height: 15,
               ),
 
               // Password input
-              TextformGlobal(
-                controller: passwordController,
-                text: 'Password',
-                obscureText: true,
-                textInputType: TextInputType.visiblePassword,
-                validator: RequiredValidator(errorText: 'Password is required'),
-              ),
+              // TextformGlobal(
+              //   controller: passwordController,
+              //   text: 'Password',
+              //   obscureText: true,
+              //   textInputType: TextInputType.visiblePassword,
+              //   validator: RequiredValidator(errorText: 'Password is required'),
+              // ),
 
               const SizedBox(
                 height: 10,
@@ -142,7 +142,7 @@ class MyLoginview extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                Get.to(() => Mysignupview());
+                Get.to(() => const MySignupview());
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
