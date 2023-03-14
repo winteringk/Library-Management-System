@@ -13,6 +13,27 @@ class MySignupview extends StatefulWidget {
 }
 
 class _MySignupviewState extends State<MySignupview> {
+  TextEditingController? emailAddressController1;
+  TextEditingController? passwordController;
+  TextEditingController? confirmPasswordController;
+  TextEditingController? usernameController;
+
+  late bool _obscureText;
+  TextEditingController? visibleController;
+  late bool _obscureText1;
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    emailAddressController1 = TextEditingController();
+    passwordController = TextEditingController();
+    confirmPasswordController = TextEditingController();
+    _obscureText = false;
+    visibleController = TextEditingController();
+    _obscureText1 = false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +41,7 @@ class _MySignupviewState extends State<MySignupview> {
         child: SafeArea(
           child: Container(
             width: double.infinity,
-            padding: const EdgeInsets.only(top: 70, left: 30, right: 30),
+            padding: const EdgeInsets.only(top: 50, left: 30, right: 30),
             child: Form(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,7 +58,7 @@ class _MySignupviewState extends State<MySignupview> {
                     ),
                   ),
                   const SizedBox(
-                    height: 50,
+                    height: 15,
                   ),
                   Text(
                     'Sign up to your account',
@@ -60,12 +81,31 @@ class _MySignupviewState extends State<MySignupview> {
                         fontWeight: FontWeight.w500),
                   ),
                   TextFormField(
-                      // validator: MultiValidator([
-                      //   RequiredValidator(errorText: "Email is required"),
-                      //   EmailValidator(errorText: "Enter a valid email address")
-                      // ]),
-
+                    validator: MultiValidator([
+                      RequiredValidator(errorText: "Email is required"),
+                      EmailValidator(errorText: "Enter a valid email address")
+                    ]),
+                    controller: emailAddressController1,
+                    decoration: InputDecoration(
+                      hintText: " Email",
+                      hintStyle: GoogleFonts.poppins(
+                          color: Color.textColor,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w300),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(90),
                       ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(90),
+                        borderSide: BorderSide(
+                          color: Color.mainColor,
+                        ),
+                      ),
+                      filled: true,
+                      contentPadding:
+                          const EdgeInsetsDirectional.fromSTEB(16, 24, 0, 24),
+                    ),
+                  ),
 
                   const SizedBox(
                     height: 15,
@@ -79,7 +119,39 @@ class _MySignupviewState extends State<MySignupview> {
                         fontSize: 16,
                         fontWeight: FontWeight.w500),
                   ),
-                  TextFormField(),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  TextFormField(
+                    validator: MultiValidator([
+                      RequiredValidator(errorText: "Username is required"),
+                      MinLengthValidator(6,
+                          errorText: "Username should be at least 6 digits"),
+                      MaxLengthValidator(15,
+                          errorText:
+                              "Username should not be greater than 15 digits")
+                    ]),
+                    controller: usernameController,
+                    decoration: InputDecoration(
+                      hintText: " Username",
+                      hintStyle: GoogleFonts.poppins(
+                          color: Color.textColor,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w300),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(90),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(90),
+                        borderSide: BorderSide(
+                          color: Color.mainColor,
+                        ),
+                      ),
+                      filled: true,
+                      contentPadding:
+                          const EdgeInsetsDirectional.fromSTEB(16, 24, 0, 24),
+                    ),
+                  ),
 
                   const SizedBox(
                     height: 15,
@@ -93,7 +165,52 @@ class _MySignupviewState extends State<MySignupview> {
                         fontSize: 16,
                         fontWeight: FontWeight.w500),
                   ),
-                  TextFormField(),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  TextFormField(
+                    validator: MultiValidator([
+                      RequiredValidator(errorText: "Password is required"),
+                      MinLengthValidator(6,
+                          errorText: "Password should be at least 6 digits"),
+                      MaxLengthValidator(15,
+                          errorText:
+                              "Password should not be greater than 15 digits")
+                    ]),
+                    obscureText: _obscureText,
+                    controller: passwordController,
+                    decoration: InputDecoration(
+                      hintText: " Password",
+                      hintStyle: GoogleFonts.poppins(
+                          color: Color.textColor,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w300),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(90),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(90),
+                        borderSide: BorderSide(
+                          color: Color.mainColor,
+                        ),
+                      ),
+                      filled: true,
+                      contentPadding:
+                          const EdgeInsetsDirectional.fromSTEB(16, 24, 0, 24),
+                      suffixIcon: InkWell(
+                        onTap: () => setState(() {
+                          _obscureText = !_obscureText;
+                        }),
+                        focusNode: FocusNode(skipTraversal: true),
+                        child: Icon(
+                          _obscureText
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: Color.mainColor,
+                        ),
+                      ),
+                    ),
+                  ),
 
                   const SizedBox(
                     height: 15,
@@ -107,31 +224,87 @@ class _MySignupviewState extends State<MySignupview> {
                         fontSize: 16,
                         fontWeight: FontWeight.w500),
                   ),
-                  TextFormField(),
-
                   const SizedBox(
-                    height: 15,
+                    height: 5,
+                  ),
+                  TextFormField(
+                    validator: MultiValidator([
+                      RequiredValidator(errorText: "Password is required"),
+                      MinLengthValidator(6,
+                          errorText: "Password should be at least 6 digits"),
+                      MaxLengthValidator(15,
+                          errorText:
+                              "Password should not be greater than 15 digits")
+                    ]),
+                    obscureText: _obscureText1,
+                    controller: confirmPasswordController,
+                    decoration: InputDecoration(
+                      hintText: " Confirm Password",
+                      hintStyle: GoogleFonts.poppins(
+                          color: Color.textColor,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w300),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(90),
+                          borderSide: BorderSide(color: Color.mainColor)),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(90),
+                        borderSide: BorderSide(
+                          color: Color.mainColor,
+                        ),
+                      ),
+                      filled: true,
+                      contentPadding:
+                          const EdgeInsetsDirectional.fromSTEB(16, 24, 0, 24),
+                      suffixIcon: InkWell(
+                        onTap: () => setState(() {
+                          _obscureText1 = !_obscureText1;
+                        }),
+                        focusNode: FocusNode(skipTraversal: true),
+                        child: Icon(
+                          _obscureText1
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: Color.mainColor,
+                        ),
+                      ),
+                    ),
                   ),
 
                   const SizedBox(
-                    height: 15,
+                    height: 40,
                   ),
+
                   // Sign up button
-                  SizedBox(
-                    width: double.infinity,
-                    // alignment: Alignment.center,
-                    child: ElevatedButton(
+                  InkWell(
+                    onTap: () {
+                      // ignore: avoid_print
+                      print('Sign up');
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: 55,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Color.mainColor,
+                        borderRadius: BorderRadius.circular(90),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 5,
+                            offset: Offset(0, 5),
+                          ),
+                        ],
+                      ),
                       child: Text(
-                        "SIGN UP",
+                        'Sign Up',
                         style: GoogleFonts.poppins(
+                          // GoogleFonts is a package
                           color: Colors.white,
-                          fontSize: 16,
+                          fontSize: 18,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      onPressed: () {
-                        MyLoginview();
-                      },
                     ),
                   ),
 
@@ -161,7 +334,7 @@ class _MySignupviewState extends State<MySignupview> {
               ),
               TextButton(
                 onPressed: () {
-                  Get.to(MyLoginview());
+                  Get.to(Myloginview());
                 },
                 child: Text(
                   'Sign In',

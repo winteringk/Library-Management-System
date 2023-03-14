@@ -29,7 +29,7 @@ class BodyWelcome extends StatelessWidget {
           RounderButton(
             text: 'SIGN IN',
             press: () {
-              Get.to(() => MyLoginview());
+              Get.to(() => const Myloginview());
             },
           ),
           RounderButton(
@@ -37,7 +37,7 @@ class BodyWelcome extends StatelessWidget {
             // color: kPrimaryLightColor,
             // textColor: kTextColor,
             press: () {
-              Get.to(() => Mysignupview());
+              Get.to(() => const MySignupview());
             },
           ),
         ]),

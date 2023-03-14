@@ -2,21 +2,47 @@ import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:login/utils/Global.colors.dart';
-import 'package:login/view/Widgets/buttonpassword.global.dart';
-import 'Widgets/button.global.dart';
-import 'Widgets/cmu.global.dart';
+import 'package:login/view/forgotpw.view.dart';
+import 'package:login/view/menuprofile.view.dart';
+import 'package:login/view/profile.view.dart';
 import 'register.view.dart';
-import 'Widgets/text.form.global.dart';
+// import 'Widgets/text.form.global.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class MyLoginview extends StatelessWidget {
-  MyLoginview({Key? key}) : super(key: key);
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+class Myloginview extends StatefulWidget {
+  const Myloginview({super.key});
+
+  @override
+  State<Myloginview> createState() => _MyloginviewState();
+}
+
+class _MyloginviewState extends State<Myloginview> {
+  TextEditingController? emailAddressController;
+  TextEditingController? passwordController;
+
+  late bool passwordVisibility;
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    emailAddressController = TextEditingController();
+    passwordController = TextEditingController();
+    passwordVisibility = false;
+  }
+
+  @override
+  void dispose() {
+    emailAddressController?.dispose();
+    passwordController?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
           child: SafeArea(
         child: Container(
@@ -53,32 +79,96 @@ class MyLoginview extends StatelessWidget {
               ),
 
               // Email input
-              // TextformGlobal(
-              //   controller: emailController,
-              //   text: 'Email',
-              //   obscureText: false,
-              //   textInputType: TextInputType.emailAddress,
-              //   validator: MultiValidator([
-              //     RequiredValidator(errorText: 'Email is required'),
-              //     EmailValidator(errorText: 'Enter a valid email address'),
-              //   ]),
-              // ),
+              Text(
+                "Email",
+                style: GoogleFonts.poppins(
+                    color: Color.textColor,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500),
+              ),
+              TextFormField(
+                controller: emailAddressController,
+                keyboardType: TextInputType.emailAddress,
+                obscureText: false,
+                validator: MultiValidator([
+                  RequiredValidator(errorText: 'Email is required'),
+                  EmailValidator(errorText: 'Enter a valid email address'),
+                ]),
+                decoration: InputDecoration(
+                  hintText: ' Email',
+                  hintStyle: GoogleFonts.poppins(
+                      color: Color.textColor,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w300),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(90),
+                      borderSide: BorderSide(color: Color.mainColor)),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(90),
+                    borderSide: BorderSide(
+                      color: Color.mainColor,
+                    ),
+                  ),
+                ),
+              ),
 
               const SizedBox(
                 height: 15,
               ),
 
               // Password input
-              // TextformGlobal(
-              //   controller: passwordController,
-              //   text: 'Password',
-              //   obscureText: true,
-              //   textInputType: TextInputType.visiblePassword,
-              //   validator: RequiredValidator(errorText: 'Password is required'),
-              // ),
+              Text(
+                "Password",
+                style: GoogleFonts.poppins(
+                    color: Color.textColor,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500),
+              ),
+              TextFormField(
+                controller: passwordController,
+                keyboardType: TextInputType.visiblePassword,
+                obscureText: !passwordVisibility,
+                validator: MultiValidator([
+                  RequiredValidator(errorText: 'Password is required'),
+                  MinLengthValidator(6,
+                      errorText: 'Password should be at least 6 digits'),
+                  MaxLengthValidator(15,
+                      errorText:
+                          'Password should not be greater than 15 digits'),
+                ]),
+                decoration: InputDecoration(
+                  hintText: ' Password',
+                  hintStyle: GoogleFonts.poppins(
+                      color: Color.textColor,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w300),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(90),
+                      borderSide: BorderSide(color: Color.mainColor)),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(90),
+                    borderSide: BorderSide(
+                      color: Color.mainColor,
+                    ),
+                  ),
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        passwordVisibility = !passwordVisibility;
+                      });
+                    },
+                    icon: Icon(
+                      passwordVisibility
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                      color: Color.mainColor,
+                    ),
+                  ),
+                ),
+              ),
 
               const SizedBox(
-                height: 10,
+                height: 5,
               ),
 
               // forgot password
@@ -86,7 +176,7 @@ class MyLoginview extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 child: ElevatedButton(
                   onPressed: () {
-                    Get.to(() => const ResetPassword());
+                    Get.to(() => const Resetpassword());
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
@@ -108,14 +198,103 @@ class MyLoginview extends StatelessWidget {
               ),
 
               // Signin button
-              const Mybutton(),
+              InkWell(
+                onTap: () {
+                  // ignore: avoid_print
+                  Get.to(const Mymenu());
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 55,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Color.mainColor,
+                    borderRadius: BorderRadius.circular(90),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 5,
+                        offset: Offset(0, 5),
+                      ),
+                    ],
+                  ),
+                  child: Text(
+                    'Sign In',
+                    style: GoogleFonts.poppins(
+                      // GoogleFonts is a package
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ),
 
               const SizedBox(
                 height: 50,
               ),
 
               // Signin with cmu account
-              const CMUSignin(),
+              Container(
+                alignment: Alignment.center,
+                child: Text(
+                  'Or Sign In With',
+                  style: GoogleFonts.poppins(
+                    color: Color.textColor,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+
+              // Signin with CMU IT Account
+              InkWell(
+                onTap: () {
+                  // ignore: avoid_print
+                  print('Sign in with CMU IT Account');
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 55,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(90),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 5,
+                        offset: Offset(0, 5),
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Image.asset(
+                      //   'assets/images/cmu_logo.png',
+                      //   height: 30,
+                      //   width: 30,
+                      // ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        'Sign In with CMU IT Account',
+                        style: GoogleFonts.poppins(
+                          // GoogleFonts is a package
+                          color: Color.mainColor,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
 
               const SizedBox(
                 height: 120,

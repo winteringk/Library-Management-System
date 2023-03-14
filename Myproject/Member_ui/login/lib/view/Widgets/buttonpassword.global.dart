@@ -14,7 +14,7 @@ class ResetPassword extends StatelessWidget {
         InkWell(
       onTap: () {
         // ignore: avoid_print
-        Get.to(MyLoginview());
+        Get.to(const Myloginview());
       },
       child: Container(
         alignment: Alignment.center,

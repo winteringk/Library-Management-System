@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:login/view/Widgets/otp.form.global.dart';
 import 'package:login/view/page1.view.dart';
 
 void main() {
