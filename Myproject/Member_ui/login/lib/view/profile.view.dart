@@ -36,15 +36,28 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 30),
-                Text(
-                  'Name',
-                  style: GoogleFonts.poppins(
-                    color: Color.mainColor,
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Row(
+                  children: [
+                    Text(
+                      'Firstame',
+                      style: GoogleFonts.poppins(
+                        color: Color.mainColor,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      'Lastname',
+                      style: GoogleFonts.poppins(
+                        color: Color.mainColor,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 30),
                 Text(
                   'Email',
                   style: GoogleFonts.poppins(
@@ -53,7 +66,7 @@ class ProfileScreen extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 30),
                 Text(
                   'Phone',
                   style: GoogleFonts.poppins(
@@ -62,7 +75,7 @@ class ProfileScreen extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 30),
                 Text(
                   'Address',
                   style: GoogleFonts.poppins(

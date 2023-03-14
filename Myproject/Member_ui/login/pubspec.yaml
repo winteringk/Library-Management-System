@@ -47,6 +47,7 @@ dependencies:
   firebase_core: ^2.7.1
   firebase_auth: ^4.2.10
   mysql1: ^0.20.0
+  image_picker: ^0.8.7
 
 dev_dependencies:
   flutter_test:
