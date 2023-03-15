@@ -48,6 +48,7 @@ dependencies:
   firebase_auth: ^4.2.10
   mysql1: ^0.20.0
   image_picker: ^0.8.7
+path_provider: ^2.0.13
 
 dev_dependencies:
   flutter_test:

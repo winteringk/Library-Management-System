@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:login/utils/Global.colors.dart';
 import 'package:login/view/Editprofile.view.dart';
 import 'package:login/view/profile.view.dart';
+import 'package:login/view/setting.view.dart';
 
 class Mymenu extends StatelessWidget {
   const Mymenu({super.key});
@@ -175,7 +176,7 @@ class Mymenu extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     // ignore: avoid_print
-                    Get.to(ProfileScreen());
+                    Get.to(const Mysetting());
                   },
                   child: Container(
                     alignment: Alignment.centerLeft,

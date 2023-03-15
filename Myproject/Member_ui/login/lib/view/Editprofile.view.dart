@@ -22,17 +22,18 @@ class _EditprofileviewState extends State<Editprofileview> {
 
   Future<void> _getImage() async {
     final picker = ImagePicker();
+    // ignore: deprecated_member_use
     final pickedFile = await picker.getImage(
       source: ImageSource.gallery,
     );
 
     if (pickedFile != null) {
-      final directory = await getTemporaryDirectory();
-      final imagePath = '${directory.path}/profile.png';
-      final savedImage = await pickedFile.copy(imagePath);
+      // final directory = await getTemporaryDirectory();
+      // final imagePath = '${directory.path}/profile.png';
+      // final savedImage = await pickedFile.copy(imagePath);
 
       setState(() {
-        _image = savedImage;
+        // _image = savedImage;
       });
     }
   }
@@ -81,10 +82,10 @@ class _EditprofileviewState extends State<Editprofileview> {
                         backgroundImage:
                             _image != null ? FileImage(_image!) : null,
                       ),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       ElevatedButton(
                         onPressed: _getImage,
-                        child: Text('Change profile picture'),
+                        child: const Text('Change profile picture'),
                       ),
                     ],
                   ),
