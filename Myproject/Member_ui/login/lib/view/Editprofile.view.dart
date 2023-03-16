@@ -1,14 +1,16 @@
 // ignore_for_file: unused_field
 
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
+
 import 'package:login/utils/Global.colors.dart';
-import 'package:login/Widgets/changeprofile.dart';
+
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
+import 'package:login/view/menuprofile.view.dart';
 
 class Editprofileview extends StatefulWidget {
   const Editprofileview({Key? key}) : super(key: key);
@@ -21,6 +23,31 @@ class _EditprofileviewState extends State<Editprofileview> {
   TextEditingController? _firstnameController;
   TextEditingController? _lastnameController;
   TextEditingController? _phoneController;
+  List _data = [];
+
+  Future<void> getData() async {
+    final url = await http.get(Uri.parse('http://localhost:3000/data'));
+    final jsonData = json.decode(url.body);
+
+    setState(() {
+      _data = jsonData;
+    });
+  }
+
+  Future<void> patchData(
+      String firstname, String lastname, String phone) async {
+    final response = await http.post(
+      Uri.parse('http://localhost:3000/data'),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: json.encode({
+        'firstname': firstname,
+        'lastname': lastname,
+        'phone': phone,
+      }),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -179,7 +206,11 @@ class _EditprofileviewState extends State<Editprofileview> {
                       ),
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        patchData(_firstnameController!.text,
+                            _lastnameController!.text, _phoneController!.text);
+                        Get.to(() => const Mymenu());
+                      },
                       child: Container(
                         alignment: Alignment.center,
                         height: 30,

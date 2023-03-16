@@ -1,63 +1,110 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 import 'package:login/utils/Global.colors.dart';
 import 'package:login/view/login.view.dart';
-import 'package:http/http.dart' as http;
+import 'package:path/path.dart';
 
 class MySignupview extends StatefulWidget {
-  const MySignupview({super.key});
+  const MySignupview({Key? key}) : super(key: key);
 
   @override
   State<MySignupview> createState() => _MySignupviewState();
 }
 
 class _MySignupviewState extends State<MySignupview> {
-  TextEditingController? emailAddressController1;
+  // Define text editing controllers
+  TextEditingController? emailAddressController;
   TextEditingController? passwordController;
   TextEditingController? confirmPasswordController;
   TextEditingController? usernameController;
 
-  late bool _obscureText;
-  TextEditingController? visibleController;
-  late bool _obscureText1;
+  // Define key for validating form
+  final _formKey = GlobalKey<FormState>();
+
+  // Define list of data to display
+  List _data = [];
+
+  // Define flag for showing/hiding password
+  bool _obscureText = false;
+  bool _obscureText1 = false;
+
+  // Define scaffold key for displaying snackbar messages
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  late String email;
+
+  late String username;
+
+  late String password;
 
   @override
   void initState() {
     super.initState();
-    emailAddressController1 = TextEditingController();
+
+    // Initialize text editing controllers
+    emailAddressController = TextEditingController();
     passwordController = TextEditingController();
     confirmPasswordController = TextEditingController();
-    _obscureText = false;
-    visibleController = TextEditingController();
-    _obscureText1 = false;
+    usernameController = TextEditingController();
+
+    // Fetch data from server
+    getData();
+  }
+
+  // Fetch data from server
+  Future<void> getData() async {
+    final url = await http.get(Uri.parse('http://localhost:3000/data'));
+    final jsonData = json.decode(url.body);
+
+    setState(() {
+      _data = jsonData;
+    });
+  }
+
+  // Post data to server
+  Future<void> postData(String username, String email, String password) async {
+    final response = await http.post(
+      Uri.parse('http://localhost:3000/data'),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: json.encode({
+        'username': username,
+        'email': email,
+        'password': password,
+      }),
+    );
+
+    // Fetch updated data from server
+    getData();
   }
 
   @override
   Widget build(BuildContext context) {
-    // widget.getData();
-
     return Scaffold(
+      key: scaffoldKey,
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
             width: double.infinity,
             padding: const EdgeInsets.only(top: 50, left: 30, right: 30),
             child: Form(
+              // Associate form key with form
+              key: _formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    alignment: Alignment.center,
-                    child: Text(
-                      'Sign Up',
-                      style: GoogleFonts.poppins(
-                        color: Color.mainColor,
-                        fontSize: 50,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  Text(
+                    'Sign Up',
+                    style: GoogleFonts.poppins(
+                      color: Color.mainColor,
+                      fontSize: 50,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(
@@ -88,7 +135,7 @@ class _MySignupviewState extends State<MySignupview> {
                       RequiredValidator(errorText: "Email is required"),
                       EmailValidator(errorText: "Enter a valid email address")
                     ]),
-                    controller: emailAddressController1,
+                    controller: emailAddressController,
                     decoration: InputDecoration(
                       hintText: " Email",
                       hintStyle: GoogleFonts.poppins(
@@ -108,6 +155,12 @@ class _MySignupviewState extends State<MySignupview> {
                       contentPadding:
                           const EdgeInsetsDirectional.fromSTEB(16, 24, 0, 24),
                     ),
+                    onChanged: (value) {
+                      setState(() {
+                        // eror
+                        email = value;
+                      });
+                    },
                   ),
 
                   const SizedBox(
@@ -154,6 +207,12 @@ class _MySignupviewState extends State<MySignupview> {
                       contentPadding:
                           const EdgeInsetsDirectional.fromSTEB(16, 24, 0, 24),
                     ),
+                    onChanged: (value) {
+                      setState(() {
+                        //error
+                        username = value;
+                      });
+                    },
                   ),
 
                   const SizedBox(
@@ -178,7 +237,7 @@ class _MySignupviewState extends State<MySignupview> {
                           errorText: "Password should be at least 6 digits"),
                       MaxLengthValidator(15,
                           errorText:
-                              "Password should not be greater than 15 digits")
+                              "Password should not be greater than 15 digits"),
                     ]),
                     obscureText: _obscureText,
                     controller: passwordController,
@@ -213,6 +272,12 @@ class _MySignupviewState extends State<MySignupview> {
                         ),
                       ),
                     ),
+                    onChanged: (value) {
+                      setState(() {
+                        //error
+                        password = value;
+                      });
+                    },
                   ),
 
                   const SizedBox(
@@ -237,7 +302,7 @@ class _MySignupviewState extends State<MySignupview> {
                           errorText: "Password should be at least 6 digits"),
                       MaxLengthValidator(15,
                           errorText:
-                              "Password should not be greater than 15 digits")
+                              "Password should not be greater than 15 digits"),
                     ]),
                     obscureText: _obscureText1,
                     controller: confirmPasswordController,
@@ -281,8 +346,23 @@ class _MySignupviewState extends State<MySignupview> {
                   // Sign up button
                   InkWell(
                     onTap: () {
+                      //error
+                      if (_formKey.currentState!.validate()) {
+                        if (passwordController?.text ==
+                            confirmPasswordController?.text) {
+                          // ignore: avoid_print
+                          postData(
+                              emailAddressController!.text,
+                              usernameController!.text,
+                              passwordController!.text);
+
+                          Get.to(const Myloginview());
+                        } else {
+                          // ignore: avoid_print
+                          print("Password does not match");
+                        }
+                      }
                       // ignore: avoid_print
-                      print('Sign up');
                     },
                     child: Container(
                       alignment: Alignment.center,

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:login/utils/Global.colors.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Mysetting extends StatefulWidget {
   const Mysetting({super.key});
@@ -12,6 +14,25 @@ class Mysetting extends StatefulWidget {
 
 class _MysettingState extends State<Mysetting> {
   bool _isDarkModeEnabled = false;
+  List _data = [];
+
+  Future<void> getData() async {
+    final url = await http.get(Uri.parse('http://localhost:3000/data'));
+    final jsonData = json.decode(url.body);
+
+    setState(() {
+      _data = jsonData;
+    });
+  }
+
+  Future<void> deleteData() async {
+    final response = await http.post(
+      Uri.parse('http://localhost:3000/data'),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +94,9 @@ class _MysettingState extends State<Mysetting> {
             height: 30,
           ),
           InkWell(
-            onTap: () {},
+            onTap: () {
+              deleteData();
+            },
             child: Container(
               alignment: Alignment.center,
               // padding: const EdgeInsets.only(left: 20),

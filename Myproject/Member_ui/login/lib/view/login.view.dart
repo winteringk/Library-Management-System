@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
@@ -6,6 +8,7 @@ import 'package:login/view/forgotpw.view.dart';
 import 'package:login/view/menuprofile.view.dart';
 import 'package:login/view/profile.view.dart';
 import 'register.view.dart';
+import 'package:http/http.dart' as http;
 // import 'Widgets/text.form.global.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -20,8 +23,11 @@ class _MyloginviewState extends State<Myloginview> {
   TextEditingController? emailAddressController;
   TextEditingController? passwordController;
 
+  List _data = [];
+
   late bool passwordVisibility;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -38,10 +44,23 @@ class _MyloginviewState extends State<Myloginview> {
     super.dispose();
   }
 
+  Future<void> getData(String email, String password) async {
+    final response = await http.post(
+      Uri.parse('http://localhost:3000/data'),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: json.encode({
+        'email': email,
+        'password': password,
+      }),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
+      key: _formKey,
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
           child: SafeArea(
@@ -200,8 +219,21 @@ class _MyloginviewState extends State<Myloginview> {
               // Signin button
               InkWell(
                 onTap: () {
-                  // ignore: avoid_print
-                  Get.to(const Mymenu());
+                  if (_formKey.currentState!.validate()) {
+                    if (getData(emailAddressController!.text,
+                            passwordController!.text) ==
+                        true) {
+                      Get.to(() => const Mymenu());
+                    } else {
+                      Get.snackbar(
+                        'Error',
+                        'Invalid Email or Password',
+                        snackPosition: SnackPosition.BOTTOM,
+                        backgroundColor: Colors.red,
+                        colorText: Colors.white,
+                      );
+                    }
+                  }
                 },
                 child: Container(
                   alignment: Alignment.center,
