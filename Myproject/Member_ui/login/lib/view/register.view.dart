@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 import 'package:login/utils/Global.colors.dart';
 import 'package:login/view/login.view.dart';
+import 'package:http/http.dart' as http;
 
 class MySignupview extends StatefulWidget {
   const MySignupview({super.key});
@@ -36,6 +37,8 @@ class _MySignupviewState extends State<MySignupview> {
 
   @override
   Widget build(BuildContext context) {
+    // widget.getData();
+
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
@@ -334,7 +337,7 @@ class _MySignupviewState extends State<MySignupview> {
               ),
               TextButton(
                 onPressed: () {
-                  Get.to(Myloginview());
+                  Get.to(const Myloginview());
                 },
                 child: Text(
                   'Sign In',

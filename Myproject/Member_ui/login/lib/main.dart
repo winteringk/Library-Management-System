@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:login/view/page1.view.dart';
+// import 'package:login/database/mysql.dart';
 
 void main() {
   runApp(const Myapp());
@@ -17,6 +18,7 @@ class Myapp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Auth',
       home: Myview(),
+      // var db = new Database();
     );
   }
 }

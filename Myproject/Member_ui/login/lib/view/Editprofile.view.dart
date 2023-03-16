@@ -1,42 +1,26 @@
 // ignore_for_file: unused_field
 
 import 'dart:io';
-import 'package:image_picker/image_picker.dart';
+
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:login/utils/Global.colors.dart';
+import 'package:login/Widgets/changeprofile.dart';
 
 class Editprofileview extends StatefulWidget {
-  const Editprofileview({super.key});
+  const Editprofileview({Key? key}) : super(key: key);
 
   @override
-  State<Editprofileview> createState() => _EditprofileviewState();
+  _EditprofileviewState createState() => _EditprofileviewState();
 }
 
 class _EditprofileviewState extends State<Editprofileview> {
-  File? _image;
   TextEditingController? _firstnameController;
   TextEditingController? _lastnameController;
   TextEditingController? _phoneController;
-
-  Future<void> _getImage() async {
-    final picker = ImagePicker();
-    // ignore: deprecated_member_use
-    final pickedFile = await picker.getImage(
-      source: ImageSource.gallery,
-    );
-
-    if (pickedFile != null) {
-      // final directory = await getTemporaryDirectory();
-      // final imagePath = '${directory.path}/profile.png';
-      // final savedImage = await pickedFile.copy(imagePath);
-
-      setState(() {
-        // _image = savedImage;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,23 +57,9 @@ class _EditprofileviewState extends State<Editprofileview> {
                 const SizedBox(
                   height: 30,
                 ),
-                Container(
-                  alignment: Alignment.center,
-                  child: Stack(
-                    children: [
-                      CircleAvatar(
-                        radius: 50,
-                        backgroundImage:
-                            _image != null ? FileImage(_image!) : null,
-                      ),
-                      const SizedBox(height: 16),
-                      ElevatedButton(
-                        onPressed: _getImage,
-                        child: const Text('Change profile picture'),
-                      ),
-                    ],
-                  ),
-                ),
+
+                // Changepicprofile(),
+
                 const SizedBox(
                   height: 30,
                 ),
@@ -105,6 +75,11 @@ class _EditprofileviewState extends State<Editprofileview> {
                   height: 15,
                 ),
                 TextFormField(
+                  validator: MultiValidator(
+                    [
+                      RequiredValidator(errorText: 'Firstname is required'),
+                    ],
+                  ),
                   controller: _firstnameController,
                   decoration: InputDecoration(
                     hintText: 'Enter your firstname',
@@ -139,6 +114,11 @@ class _EditprofileviewState extends State<Editprofileview> {
                   height: 15,
                 ),
                 TextFormField(
+                  validator: MultiValidator(
+                    [
+                      RequiredValidator(errorText: 'Lastname is required'),
+                    ],
+                  ),
                   controller: _lastnameController,
                   decoration: InputDecoration(
                     hintText: 'Enter your lastname',
@@ -170,6 +150,15 @@ class _EditprofileviewState extends State<Editprofileview> {
                 Row(
                   children: [
                     TextFormField(
+                      validator: MultiValidator(
+                        [
+                          RequiredValidator(errorText: 'Phone is required'),
+                          MinLengthValidator(10,
+                              errorText: 'Phone must be at least 10 digits'),
+                          MaxLengthValidator(10,
+                              errorText: 'Phone must be at most 10 digits'),
+                        ],
+                      ),
                       controller: _phoneController,
                       decoration: InputDecoration(
                         hintText: 'Enter your phone number',

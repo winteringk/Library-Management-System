@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:login/view/Widgets/background.welcome.dart';
-import 'package:login/view/Widgets/rounderbutton.global.dart';
+import 'package:login/Widgets/background.welcome.dart';
+import 'package:login/Widgets/rounderbutton.global.dart';
 import 'package:login/view/login.view.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';

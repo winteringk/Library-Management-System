@@ -69,6 +69,38 @@ class _MysettingState extends State<Mysetting> {
               },
             ),
           ),
+          const SizedBox(
+            height: 30,
+          ),
+          InkWell(
+            onTap: () {},
+            child: Container(
+              alignment: Alignment.center,
+              // padding: const EdgeInsets.only(left: 20),
+              height: 55,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Color.mainColor,
+                borderRadius: BorderRadius.circular(30),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 5,
+                    offset: Offset(0, 5),
+                  ),
+                ],
+              ),
+              child: Text(
+                'Delete Account',
+                style: GoogleFonts.poppins(
+                  // GoogleFonts is a package
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
