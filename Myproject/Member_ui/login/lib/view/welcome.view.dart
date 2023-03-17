@@ -1,4 +1,4 @@
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:login/Widgets/body.welcome.dart';
 
@@ -9,7 +9,7 @@ class Welcome extends StatefulWidget {
   State<Welcome> createState() => _WelcomeState();
 }
 
-final Future<FirebaseApp> firebase = Firebase.initializeApp();
+// final Future<FirebaseApp> firebase = Firebase.initializeApp();
 
 class _WelcomeState extends State<Welcome> {
   @override
