@@ -44,18 +44,18 @@ class _MyloginviewState extends State<Myloginview> {
     super.dispose();
   }
 
-  Future<void> getData(String email, String password) async {
-    final response = await http.post(
-      Uri.parse('http://localhost:3000/data'),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: json.encode({
-        'email': email,
-        'password': password,
-      }),
-    );
-  }
+  // Future<void> getData(String email, String password) async {
+  //   final response = await http.post(
+  //     Uri.parse('http://localhost:3000/data'),
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: json.encode({
+  //       'email': email,
+  //       'password': password,
+  //     }),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -219,21 +219,22 @@ class _MyloginviewState extends State<Myloginview> {
               // Signin button
               InkWell(
                 onTap: () {
-                  if (_formKey.currentState!.validate()) {
-                    if (getData(emailAddressController!.text,
-                            passwordController!.text) ==
-                        true) {
-                      Get.to(() => const Mymenu());
-                    } else {
-                      Get.snackbar(
-                        'Error',
-                        'Invalid Email or Password',
-                        snackPosition: SnackPosition.BOTTOM,
-                        backgroundColor: Colors.red,
-                        colorText: Colors.white,
-                      );
-                    }
-                  }
+                  Get.to(() => const Mymenu());
+                  // if (_formKey.currentState!.validate()) {
+                  //   if (getData(emailAddressController!.text,
+                  //           passwordController!.text) ==
+                  //       true) {
+
+                  //   } else {
+                  //     Get.snackbar(
+                  //       'Error',
+                  //       'Invalid Email or Password',
+                  //       snackPosition: SnackPosition.BOTTOM,
+                  //       backgroundColor: Colors.red,
+                  //       colorText: Colors.white,
+                  //     );
+                  //   }
+                  // }
                 },
                 child: Container(
                   alignment: Alignment.center,

@@ -39,7 +39,7 @@ class ProfileScreen extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      'Firstame',
+                      'John',
                       style: GoogleFonts.poppins(
                         color: Color.mainColor,
                         fontSize: 22,
@@ -48,7 +48,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     const SizedBox(width: 10),
                     Text(
-                      'Lastname',
+                      'Doe',
                       style: GoogleFonts.poppins(
                         color: Color.mainColor,
                         fontSize: 22,
@@ -59,7 +59,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 30),
                 Text(
-                  'Email',
+                  'Email john_doe@gmail.com',
                   style: GoogleFonts.poppins(
                     color: Color.mainColor,
                     fontSize: 18,
@@ -68,7 +68,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 30),
                 Text(
-                  'Phone',
+                  '0512635548',
                   style: GoogleFonts.poppins(
                     color: Color.mainColor,
                     fontSize: 18,
@@ -76,14 +76,14 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 30),
-                Text(
-                  'Address',
-                  style: GoogleFonts.poppins(
-                    color: Color.mainColor,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+                // Text(
+                //   'Address',
+                //   style: GoogleFonts.poppins(
+                //     color: Color.mainColor,
+                //     fontSize: 18,
+                //     fontWeight: FontWeight.w500,
+                //   ),
+                // ),
                 const SizedBox(height: 30),
               ],
             ),

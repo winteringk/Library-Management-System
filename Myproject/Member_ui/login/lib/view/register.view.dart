@@ -53,35 +53,35 @@ class _MySignupviewState extends State<MySignupview> {
     usernameController = TextEditingController();
 
     // Fetch data from server
-    getData();
-  }
+    //   getData();
+    // }
 
-  // Fetch data from server
-  Future<void> getData() async {
-    final url = await http.get(Uri.parse('http://localhost:3000/data'));
-    final jsonData = json.decode(url.body);
+    // Fetch data from server
+    // Future<void> getData() async {
+    //   final url = await http.get(Uri.parse('http://localhost:3000/data'));
+    //   final jsonData = json.decode(url.body);
 
-    setState(() {
-      _data = jsonData;
-    });
-  }
+    //   setState(() {
+    //     _data = jsonData;
+    //   });
+    // }
 
-  // Post data to server
-  Future<void> postData(String username, String email, String password) async {
-    final response = await http.post(
-      Uri.parse('http://localhost:3000/data'),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: json.encode({
-        'username': username,
-        'email': email,
-        'password': password,
-      }),
-    );
+    // Post data to server
+    // Future<void> postData(String username, String email, String password) async {
+    //   final response = await http.post(
+    //     Uri.parse('http://localhost:3000/data'),
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: json.encode({
+    //       'username': username,
+    //       'email': email,
+    //       'password': password,
+    //     }),
+    //   );
 
     // Fetch updated data from server
-    getData();
+    //   getData();
   }
 
   @override
@@ -346,22 +346,22 @@ class _MySignupviewState extends State<MySignupview> {
                   // Sign up button
                   InkWell(
                     onTap: () {
+                      Get.to(const Myloginview());
                       //error
-                      if (_formKey.currentState!.validate()) {
-                        if (passwordController?.text ==
-                            confirmPasswordController?.text) {
-                          // ignore: avoid_print
-                          postData(
-                              emailAddressController!.text,
-                              usernameController!.text,
-                              passwordController!.text);
+                      // if (_formKey.currentState!.validate()) {
+                      //   if (passwordController?.text ==
+                      //       confirmPasswordController?.text) {
+                      //     // ignore: avoid_print
+                      //     postData(
+                      //         emailAddressController!.text,
+                      //         usernameController!.text,
+                      //         passwordController!.text);
 
-                          Get.to(const Myloginview());
-                        } else {
-                          // ignore: avoid_print
-                          print("Password does not match");
-                        }
-                      }
+                      //   } else {
+                      //     // ignore: avoid_print
+                      //     print("Password does not match");
+                      //   }
+                      // }
                       // ignore: avoid_print
                     },
                     child: Container(

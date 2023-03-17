@@ -33,7 +33,7 @@ class Mymenu extends StatelessWidget {
                 Container(
                   alignment: Alignment.center,
                   child: Text(
-                    'username',
+                    'John Doe',
                     style: GoogleFonts.poppins(
                       color: Color.mainColor,
                       fontSize: 22,

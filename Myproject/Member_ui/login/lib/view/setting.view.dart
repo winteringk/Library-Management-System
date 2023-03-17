@@ -14,25 +14,25 @@ class Mysetting extends StatefulWidget {
 
 class _MysettingState extends State<Mysetting> {
   bool _isDarkModeEnabled = false;
-  List _data = [];
+  // List _data = [];
 
-  Future<void> getData() async {
-    final url = await http.get(Uri.parse('http://localhost:3000/data'));
-    final jsonData = json.decode(url.body);
+  // Future<void> getData() async {
+  //   final url = await http.get(Uri.parse('http://localhost:3000/data'));
+  //   final jsonData = json.decode(url.body);
 
-    setState(() {
-      _data = jsonData;
-    });
-  }
+  //   setState(() {
+  //     _data = jsonData;
+  //   });
+  // }
 
-  Future<void> deleteData() async {
-    final response = await http.post(
-      Uri.parse('http://localhost:3000/data'),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    );
-  }
+  // Future<void> deleteData() async {
+  //   final response = await http.post(
+  //     Uri.parse('http://localhost:3000/data'),
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +95,7 @@ class _MysettingState extends State<Mysetting> {
           ),
           InkWell(
             onTap: () {
-              deleteData();
+              // deleteData();
             },
             child: Container(
               alignment: Alignment.center,

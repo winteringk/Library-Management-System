@@ -4,8 +4,6 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:login/utils/Global.colors.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class Changepassword extends StatefulWidget {
   const Changepassword({super.key});
@@ -18,29 +16,28 @@ class _ChangepasswordState extends State<Changepassword> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController? _passwordController;
   TextEditingController? _newpasswordController;
-  TextEditingController? _confirmpasswordController;
-  List _data = [];
+  // List _data = [];
 
-  Future<void> getData() async {
-    final url = await http.get(Uri.parse('http://localhost:3000/data'));
-    final jsonData = json.decode(url.body);
+  // Future<void> getData() async {
+  //   final url = await http.get(Uri.parse('http://localhost:3000/data'));
+  //   final jsonData = json.decode(url.body);
 
-    setState(() {
-      _data = jsonData;
-    });
-  }
+  //   setState(() {
+  //     _data = jsonData;
+  //   });
+  // }
 
-  Future<void> patchData(String password) async {
-    final response = await http.post(
-      Uri.parse('http://localhost:3000/data'),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: json.encode({
-        'password': password,
-      }),
-    );
-  }
+  // Future<void> patchData(String password) async {
+  //   final response = await http.post(
+  //     Uri.parse('http://localhost:3000/data'),
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: json.encode({
+  //       'password': password,
+  //     }),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -224,13 +221,13 @@ class _ChangepasswordState extends State<Changepassword> {
                 alignment: Alignment.center,
                 child: ElevatedButton(
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      if (_passwordController == getData()) {
-                        patchData(
-                          _newpasswordController!.text,
-                        );
-                      }
-                    }
+                    // if (_formKey.currentState!.validate()) {
+                    //   if (_passwordController == getData()) {
+                    //     patchData(
+                    //       _newpasswordController!.text,
+                    //     );
+                    //   }
+                    // }
                   },
                   child: Text(
                     'Change Password',
