@@ -13,9 +13,10 @@ class Changepassword extends StatefulWidget {
 }
 
 class _ChangepasswordState extends State<Changepassword> {
-  final _formKey = GlobalKey<FormState>();
+  // final _formKey = GlobalKey<FormState>();
   TextEditingController? _passwordController;
   TextEditingController? _newpasswordController;
+  TextEditingController? _confirmpasswordController;
   // List _data = [];
 
   // Future<void> getData() async {
@@ -151,7 +152,7 @@ class _ChangepasswordState extends State<Changepassword> {
                   MaxLengthValidator(15,
                       errorText: 'Password must not be greater than 15 digits'),
                 ]),
-                controller: _passwordController,
+                controller: _newpasswordController,
                 decoration: InputDecoration(
                   hintText: 'Enter your new password',
                   hintStyle: GoogleFonts.poppins(
@@ -195,7 +196,7 @@ class _ChangepasswordState extends State<Changepassword> {
                   MaxLengthValidator(15,
                       errorText: 'Password must not be greater than 15 digits'),
                 ]),
-                controller: _passwordController,
+                controller: _confirmpasswordController,
                 decoration: InputDecoration(
                   hintText: 'Enter your new password',
                   hintStyle: GoogleFonts.poppins(
@@ -229,20 +230,20 @@ class _ChangepasswordState extends State<Changepassword> {
                     //   }
                     // }
                   },
-                  child: Text(
-                    'Change Password',
-                    style: GoogleFonts.poppins(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white,
-                    ),
-                  ),
                   style: ElevatedButton.styleFrom(
                     primary: Color.mainColor,
                     padding:
                         EdgeInsets.symmetric(horizontal: 100, vertical: 20),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(90),
+                    ),
+                  ),
+                  child: Text(
+                    'Change Password',
+                    style: GoogleFonts.poppins(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white,
                     ),
                   ),
                 ),

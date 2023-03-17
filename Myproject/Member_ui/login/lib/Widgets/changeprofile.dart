@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
@@ -27,6 +26,7 @@ class _ChangepicprofileState extends State<Changepicprofile> {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
+                // ignore: deprecated_member_use
                 final pickedFile = await picker.getImage(
                   source: ImageSource.gallery,
                 );
@@ -39,6 +39,7 @@ class _ChangepicprofileState extends State<Changepicprofile> {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
+                // ignore: deprecated_member_use
                 final pickedFile = await picker.getImage(
                   source: ImageSource.camera,
                 );

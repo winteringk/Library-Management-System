@@ -16,6 +16,7 @@ class Editprofileview extends StatefulWidget {
   const Editprofileview({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _EditprofileviewState createState() => _EditprofileviewState();
 }
 
@@ -23,31 +24,19 @@ class _EditprofileviewState extends State<Editprofileview> {
   TextEditingController? _firstnameController;
   TextEditingController? _lastnameController;
   TextEditingController? _phoneController;
-  List _data = [];
+  // List _data = [];
 
-  Future<void> getData() async {
-    final url = await http.get(Uri.parse('http://localhost:3000/data'));
-    final jsonData = json.decode(url.body);
+  // Future<void> getData() async {
+  //   final url = await http.get(Uri.parse('http://localhost:3000/data'));
+  //   final jsonData = json.decode(url.body);
 
-    setState(() {
-      _data = jsonData;
-    });
-  }
+  //   setState(() {
+  //     _data = jsonData;
+  //   });
+  // }
 
-  Future<void> patchData(
-      String firstname, String lastname, String phone) async {
-    final response = await http.post(
-      Uri.parse('http://localhost:3000/data'),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: json.encode({
-        'firstname': firstname,
-        'lastname': lastname,
-        'phone': phone,
-      }),
-    );
-  }
+  // Future<void> patchData(
+  //     String firstname, String lastname, String phone) async {}
 
   @override
   Widget build(BuildContext context) {
@@ -207,8 +196,8 @@ class _EditprofileviewState extends State<Editprofileview> {
                     ),
                     InkWell(
                       onTap: () {
-                        patchData(_firstnameController!.text,
-                            _lastnameController!.text, _phoneController!.text);
+                        // patchData(_firstnameController!.text,
+                        //     _lastnameController!.text, _phoneController!.text);
                         Get.to(() => const Mymenu());
                       },
                       child: Container(
